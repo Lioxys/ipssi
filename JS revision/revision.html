@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Opération</h1>
+    
+    <label for="">Valeur 1</label>
+    <input type="number" id="valeur1">
+    <label for="">Valeur 2</label>
+    <input type="text" id="valeur2">
+    <label for="">Opérateur</label>
+    <input type="text" id="op">
+    <input type="submit" id="submit">
+
+
+    <div id="res"></div>
+    <script>
+    
+        document.getElementById('submit').addEventListener('click', function(){
+            let val1 = document.getElementById('valeur1').value;
+            let val2 = document.getElementById('valeur2').value;
+            let op = document.getElementById('op').value;
+            let res = document.getElementById('res');
+            let somme = 0;
+            switch(op){
+                case "+":
+                    somme = +val1 + +val2;
+                    break;
+                case "*":
+                    for(let i=0; i < val2; i++){
+                        somme += +val1;
+                    }
+                    somme;
+                    break;
+                case "/":
+                    for(let i=0; val1 >= 0; i++){
+                        val1 -= val2;
+                        somme = i;
+                        console.log(val1, val2, i);
+                    }
+            }
+
+            res.innerHTML = somme;
+        });
+    </script>
+    
+
+
+</body>
+</html>
