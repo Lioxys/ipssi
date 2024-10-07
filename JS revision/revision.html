@@ -7,21 +7,58 @@
 </head>
 <body>
 
-    <h1>Opération</h1>
+    <h1 id="titre">Opération</h1>
     
     <label for="">Valeur 1</label>
-    <input type="number" id="valeur1">
+    <input type="number" id="valeur1" class="input"> 
     <label for="">Valeur 2</label>
-    <input type="text" id="valeur2">
+    <input type="text" id="valeur2" class="input">
     <label for="">Opérateur</label>
-    <input type="text" id="op">
+    <input type="text" id="op" class="input">
     <input type="submit" id="submit">
 
 
     <div id="res"></div>
     <script>
-    
+        
+        let prenoms1 = ["toto", "tata", 56];
+        let prenoms2 = prenoms1;
+
+        console.log(prenoms1.length);
+        prenoms2[2] = "Tutu";
+        console.log(prenoms1);
+
+        let person = {
+            prenom: "Jean",
+            age: 20,
+            presentation: function(){
+                console.log("Je suis " + person.prenom + " et j'ai " + person.age + " ans.")
+            }
+        };
+
+        person.presentation();
+
+        let input = document.querySelectorAll('.input');
+
+        for (let i = 0; i < input.length ; i++){
+            input[i].addEventListener("focus", function(){
+                input[i].style.border = "5px red solid";
+            });
+
+            input[i].addEventListener("blur", function(){
+                input[i].style.border = "1px black solid";
+            });
+        
+        }
+
+        function byId(id){
+            return document.getElementById(id);
+        }
+        
         document.getElementById('submit').addEventListener('click', function(){
+
+            titre.classList.toggle('bg-primary');
+
             let val1 = document.getElementById('valeur1').value;
             let val2 = document.getElementById('valeur2').value;
             let op = document.getElementById('op').value;
@@ -38,10 +75,13 @@
                     somme;
                     break;
                 case "/":
-                    for(let i=0; val1 >= 0; i++){
-                        val1 -= val2;
+                    let result = val1
+                    for(let i=0; result >= 0; i++){
+                        result -= val2;
                         somme = i;
-                        console.log(val1, val2, i);
+                        if(result<0){
+                            somme = i + ((result+ +val2)/+val2)
+                        }
                     }
             }
 
