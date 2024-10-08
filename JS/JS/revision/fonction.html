@@ -6,26 +6,34 @@
     <title>Document</title>
 </head>
 <body>
-    
+
+
     <script>
 
         function somme(p1, p2, ...p3){
             let sum = 0;
             for(let i=0; i<p3.length; i++){
                 sum += p3[i];
-                console.log(p3[i])
             }
-            return p1+p2 + sum;
+            
+            return p1 + p2 + sum;
         }
 
-        console.log(somme(50, 7, 5, 4, 9))
+        console.log(somme(50, 7, 5, 4, 9, 25, 5, 96, 8, 80));
+        console.log(somme(50, 7, 5, 4, 9));
+        console.log(somme(50, 7, 5,));
         console.log(somme(50, 7));
 
-        let max = (x, y) => (x > y) ? x : y 
+       /* let max = function(x, y){
+           return (x > y) ? x : y;
+        }*/
+
+        let max = (x, y) => (x > y) ? x : y
+        
 
         console.log(max(5, 19));
-    </script>
 
+    </script>
+    
 </body>
 </html>
-

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body class="bg-secondary p-4 text-center">
+
+    <header>
+        <h1>Validation formulaire</h1>
+    </header>
+    <main class="container-fluid">
+        <form action="bienvenue.html" id="form" novalidate>
+            <div class="form-check text-align:left">
+                <input type="radio" name="sexe" value="Femme" id="femme" class="form-check-input">
+                <label for="femme">Femme</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" name="sexe" value="Homme" id="homme" class="form-check-input">
+                <label for="homme">Homme</label>
+            </div>
+
+            <div class="form-group">
+                <label for="">Prénom</label>
+                <input type="text" id="prenom" class="form-control" required minlength="2">
+            </div>
+            <div class="form-group">
+                <label for="">Login</label>
+                <input type="text" id="login" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" id="mdp" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="">Age</label>
+                <input type="number" id="age" class="form-control" required>
+            </div>
+
+            <div id="langages">Langages Info</div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="langages" type="checkbox" id="php" value="php">
+                <label class="form-check-label" for="php">PHP</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="langages" type="checkbox" id="js" value="javascript">
+                <label class="form-check-label" for="js">JS</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="langages" type="checkbox" id="css" value="CSS">
+                <label class="form-check-label" for="css">CSS</label>
+            </div> 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" name="langages" type="checkbox" id="css" value="Python">
+                <label class="form-check-label" for="css">Python</label>
+            </div>
+
+            <input type="submit" class="btn btn-success mt-3">
+        </form>
+    </main>
+
+    <script>
+
+        let form = document.getElementById('form');
+        let inputs = document.querySelectorAll('input[required]');
+
+        let check_div = document.getElementById('langages');
+
+        let langages = document.getElementsByName('langages')
+        let langages_compteur = 0; 
+
+        let radios = document.querySelectorAll('input[type="radio"][name="sexe"]');
+
+        console.log(radios)
+        
+        function radioValidation(radios){
+            let comp = 0
+            radios.forEach(radio =>{
+                if(radio.checked){
+                    ++comp;
+                }
+            });
+            return comp == 1 ? true : false;
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => reset(input))
+            input.addEventListener('blur', () => valide(input))
+        })
+
+        langages.forEach(langage => {
+            langage.addEventListener('change', function(){
+                if (langage.checked){
+                    langages_compteur+=1;
+                }else{
+                    langages_compteur-=1;
+                }
+            })
+        })
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            check_div.nextSibling.remove();
+            console.log(radioValidation(radios));
+            inputs.forEach(input => {
+                reset(input);
+                if (!valide(input) ){
+                    isValid = false;
+                }
+            })
+            if (isValid & valide_langages(langages_compteur) & radioValidation(radios)){
+                form.submit();
+            }}
+        );
+
+        function reset(langage){
+            if (langage.nextSibling){
+                langage.nextSibling.remove();
+            }
+        }
+
+        function valide(input){
+            if (input.checkValidity()){
+                return true
+            }
+
+            let div = document.createElement("div");
+            let text = document.createTextNode(input.validationMessage);
+            div.appendChild(text);
+            div.style.color = "red";
+            input.after(div);
+
+            return false
+        }
+        function valide_langages(langages_compteur){
+            if (langages_compteur<2){
+                let div = document.createElement("div");
+                let text = document.createTextNode("Choississez deux langages");
+                div.appendChild(text);
+                div.style.color = "red";
+                check_div.after(div);
+                
+                return false
+            }else{
+                return true
+            }
+        }
+    </script>
+    
+</body>
+</html>
